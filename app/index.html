@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; script-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>SNS Studio 소개 (About) | UNBOX AI</title>
+<meta name="description" content="SNS Studio: 언박스 AI 채널 운영자가 자기 컴퓨터에서만 쓰는 쇼츠 제작 도구. YouTube API 사용 내용과 데이터 처리.">
+<meta name="theme-color" content="#f2f2ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://unboxai-kr.github.io/app/">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<style>*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+:root{color-scheme:light dark;--bg:#f2f2ef;--surface:#fcfcfa;--surface-2:#e9e9e4;--line:#dcdcd6;--line-strong:#c4c4bd;--ink:#141414;--ink-2:#46463f;--ink-3:#63635c;--brand:#0d0d0e;--brand-2:#1c1c1f;--brand-line:#2a2a2e;--brand-ink:#f6f6f2;--brand-ink-2:#b3b3ab;--lime:#c2f53a;--link:#3d5a00;--warn-bg:#fcefd0;--warn-line:#eed48c;--warn-ink:#654400;--wm-ink:#141414;--wm-ai:#567406;--font:-apple-system,BlinkMacSystemFont,"Pretendard","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#0b0b0c;--surface:#141416;--surface-2:#1d1d20;--line:#27272b;--line-strong:#3a3a40;--ink:#f0f0ec;--ink-2:#c0c0ba;--ink-3:#93938d;--brand:#141416;--brand-2:#1d1d20;--brand-line:#2c2c31;--link:#c2f53a;--warn-bg:#2a2108;--warn-line:#4a3a10;--warn-ink:#f2c65c;--wm-ink:#f0f0ec;--wm-ai:#c2f53a}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased;min-height:100dvh}
+a{color:var(--link);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:6px}
+.i{width:1em;height:1em;flex:none}
+h1,h2,h3,p{margin:0}
+.doc{max-width:760px;margin:0 auto;padding:12px 16px 56px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;text-decoration:none;color:var(--ink-2);padding:6px 2px}
+.back:hover{color:var(--ink)}
+.lang{display:flex;gap:4px}
+.lang a{display:inline-flex;align-items:center;min-height:36px;padding:0 12px;border:1px solid var(--line-strong);border-radius:999px;font-size:13.5px;font-weight:700;text-decoration:none;color:var(--ink)}
+.lang a:hover{background:var(--surface-2)}
+.head{margin-top:10px;background:var(--brand);color:var(--brand-ink);border:1px solid var(--brand-line);border-radius:22px;padding:24px 20px 22px}
+.head .wordmark{display:block}
+.head h1{margin-top:16px;font-size:28px;line-height:1.25;font-weight:800;letter-spacing:-.025em}
+.head .lead{margin-top:10px;font-size:15px;line-height:1.65;color:var(--brand-ink-2)}
+.head .date{margin-top:14px;font-size:13px;font-weight:700;color:var(--lime)}
+.doc section[lang]{scroll-margin-top:12px}
+.part{margin-top:34px;padding-top:26px;border-top:1px solid var(--line)}
+.part-title{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.3}
+.part-sub{margin-top:4px;font-size:13.5px;color:var(--ink-3)}
+.blk{margin-top:26px}
+.blk h2{font-size:17px;font-weight:800;letter-spacing:-.01em;margin:0 0 8px}
+.blk p{font-size:15.5px;color:var(--ink-2)}
+.blk p+p{margin-top:8px}
+.blk ul{margin:8px 0 0;padding:0 0 0 20px;color:var(--ink-2);font-size:15.5px}
+.blk li+li{margin-top:6px}
+.blk strong{color:var(--ink)}
+.cards{display:grid;gap:10px;margin-top:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.card h3{font-size:15.5px;font-weight:800;line-height:1.4}
+.card p{margin-top:4px;font-size:14.5px;line-height:1.6;color:var(--ink-2)}
+.card dl{margin:8px 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;font-size:14px;line-height:1.55}
+.card dt{font-weight:700;color:var(--ink-3)}
+.card dd{margin:0;color:var(--ink-2)}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:12px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);font-size:14.5px;font-weight:700;text-decoration:none}
+.btn:hover{background:var(--surface-2)}
+.btn .i{font-size:17px}
+.ph{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line);border-radius:8px;padding:1px 8px;font-weight:700}
+.foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px 16px}
+.foot a{color:var(--ink-2)}
+@media (min-width:720px){.doc{padding:24px 24px 72px}.head{padding:30px 28px 26px}.head h1{font-size:34px}.cards{grid-template-columns:1fr 1fr}}
+@media print{.lang,.back{display:none}.head{background:none;color:var(--ink);border-color:var(--line)}}</style>
+</head>
+<body>
+<div class="doc">
+<nav class="top" aria-label="이동"><a class="back" href="../"><svg class="i" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" viewBox="0 0 256 256"><path d="M228,128a12,12,0,0,1-12,12H69l51.52,51.51a12,12,0,0,1-17,17l-72-72a12,12,0,0,1,0-17l72-72a12,12,0,0,1,17,17L69,116H216A12,12,0,0,1,228,128Z"></path></svg>링크 모음</a><div class="lang"><a href="#ko" hreflang="ko">한국어</a><a href="#en" hreflang="en" lang="en">English</a></div></nav>
+<header class="head"><svg class="wordmark" role="img" aria-label="UNBOX AI" xmlns="http://www.w3.org/2000/svg" width="86.01" height="13.48" viewBox="0 -1.83 661.61 103.67" overflow="visible"><path style="fill:var(--brand-ink)" d="M42.82 101.62Q30.06 101.62 20.44 96.28Q10.82 90.94 5.41 81.54Q0 72.14 0 60.05V0H25.21V61.92Q25.21 67.31 27.56 71.18Q29.9 75.04 33.9 77.08Q37.91 79.13 42.81 79.13Q47.85 79.13 51.71 77.09Q55.57 75.05 57.79 71.23Q60.01 67.42 60.01 62.06V0H85.33V60.19Q85.33 72.28 79.99 81.61Q74.65 90.94 65.11 96.28Q55.57 101.62 42.82 101.62ZM103.97 100V0H121.6L129.19 20.52V100ZM172.91 100 114.45 25.81 121.6 0 180.07 74.19ZM172.91 100 166.39 78.95V0H191.6V100ZM233 100V81.24H253.95Q259.84 81.24 263.29 77.91Q266.75 74.58 266.75 69.25Q266.75 65.69 265.18 62.96Q263.61 60.23 260.77 58.74Q257.93 57.26 253.95 57.26H233V39.14H252.4Q257.37 39.14 260.54 36.64Q263.72 34.13 263.72 28.95Q263.72 23.77 260.54 21.26Q257.37 18.76 252.4 18.76H233V0H258.43Q267.81 0 274.59 3.51Q281.38 7.02 285.05 12.96Q288.72 18.9 288.72 26.38Q288.72 36.35 281.93 42.91Q275.14 49.47 262.06 51.13L262.16 42.56Q276.45 44.25 284.1 51.8Q291.75 59.34 291.75 70.77Q291.75 79.23 287.53 85.84Q283.32 92.45 275.63 96.23Q267.95 100 257.47 100ZM213.08 100V0H237.87V100ZM351.95 101.83Q340.42 101.83 330.67 97.88Q320.92 93.94 313.64 86.9Q306.35 79.87 302.32 70.36Q298.28 60.86 298.28 49.86Q298.28 38.75 302.26 29.37Q306.25 19.99 313.46 12.96Q320.67 5.92 330.4 2.05Q340.13 -1.83 351.66 -1.83Q363.19 -1.83 372.93 2.05Q382.66 5.92 389.89 12.96Q397.12 19.99 401.1 29.44Q405.08 38.89 405.08 50Q405.08 61 401.1 70.45Q397.12 79.9 389.9 86.97Q382.69 94.04 373.01 97.94Q363.34 101.83 351.95 101.83ZM351.66 79.34Q360.09 79.34 366.32 75.67Q372.54 72 375.94 65.36Q379.34 58.71 379.34 49.86Q379.34 43.27 377.4 37.91Q375.47 32.55 371.8 28.67Q368.13 24.79 363.05 22.73Q357.98 20.66 351.66 20.66Q343.27 20.66 337.05 24.26Q330.82 27.86 327.42 34.43Q324.02 41.01 324.02 49.86Q324.02 56.56 325.96 62.01Q327.9 67.45 331.55 71.32Q335.2 75.18 340.29 77.26Q345.39 79.34 351.66 79.34ZM472.74 100 445.59 55.47H443.06L405.04 0H435.02L461.57 42H464.11L502.33 100ZM403.25 100 439.71 46.51 459.63 56.06 432.02 100ZM464.71 53.17 444.78 43.62 471.76 0H500.53Z"/><path style="fill:var(--lime)" d="M528.16 100 566.98 0H591.38L629.82 100H603.44L574.49 16.01H583.59L554.04 100ZM551.78 82.55V62.52H606.97V82.55ZM636.4 100V0H661.61V100Z"/></svg><h1>SNS Studio 소개</h1><p class="lead">「언박스 AI」 채널 운영자가 자기 컴퓨터에서만 쓰는 쇼츠 제작 도구입니다. 공개 웹 서비스가 아니어서 로그인 주소가 없습니다.</p></header>
+<section id="ko" lang="ko">
+<section class="blk"><h2>무엇을 하나요</h2><p>새로 나온 AI 도구를 1분 쇼츠로 소개하는 영상을 만듭니다. 자료 정리, 대본, 음성, 자막, 화면을 만들어 영상으로 완성하고, 운영자가 제목과 설명과 공개 범위를 확인한 뒤 자기 채널에 올립니다.</p></section>
+<section class="blk"><h2>YouTube API로 하는 일</h2><ul><li>운영자 본인 채널에 쇼츠 올리기 (videos.insert). 올리기 화면에서 제목, 설명, 태그, 공개 범위를 확인하고 운영자가 직접 누릅니다.</li><li>운영자 채널의 댓글 읽기와 답글 달기 (commentThreads.list, comments.insert). 답글은 운영자가 하나씩 확인하고 올립니다. 영상마다 켜는 링크 자동 답글은 기본으로 꺼져 있습니다.</li><li>연결된 채널 이름 확인 (channels.list).</li><li>주제를 찾으려고 공개 인기 쇼츠 목록 보기 (search.list, videos.list, playlistItems.list). 영상은 내려받지 않고 YouTube 링크와 임베드 플레이어로만 봅니다.</li></ul></section>
+<section class="blk"><h2>데이터</h2><p>모든 데이터는 운영자 컴퓨터에만 저장하고, YouTube에서 받은 데이터는 30일 안에 새로 받거나 지웁니다. 자세한 내용은 <a href="../privacy/">개인정보처리방침</a>에 있습니다. 문의: <a href="https://www.instagram.com/unboxai_kr/">https://www.instagram.com/unboxai_kr/</a></p></section>
+<div class="links"><a class="btn" href="../privacy/"><svg class="i" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" viewBox="0 0 256 256"><path d="M232,44H160a43.86,43.86,0,0,0-32,13.85A43.86,43.86,0,0,0,96,44H24A12,12,0,0,0,12,56V200a12,12,0,0,0,12,12H96a20,20,0,0,1,20,20,12,12,0,0,0,24,0,20,20,0,0,1,20-20h72a12,12,0,0,0,12-12V56A12,12,0,0,0,232,44ZM96,188H36V68H96a20,20,0,0,1,20,20V192.81A43.79,43.79,0,0,0,96,188Zm124,0H160a43.71,43.71,0,0,0-20,4.83V88a20,20,0,0,1,20-20h60ZM164,96h32a12,12,0,0,1,0,24H164a12,12,0,0,1,0-24Zm44,52a12,12,0,0,1-12,12H164a12,12,0,0,1,0-24h32A12,12,0,0,1,208,148Z"></path></svg>개인정보처리방침 (Privacy)</a><a class="btn" href="../terms/"><svg class="i" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" viewBox="0 0 256 256"><path d="M92,108a12,12,0,0,1,12-12h72a12,12,0,0,1,0,24H104A12,12,0,0,1,92,108Zm12,52h72a12,12,0,0,0,0-24H104a12,12,0,0,0,0,24ZM236,64V184a28,28,0,0,1-28,28H36A32,32,0,0,1,4,180V88a12,12,0,0,1,24,0v92a8,8,0,0,0,16,0V64A20,20,0,0,1,64,44H216A20,20,0,0,1,236,64Zm-24,4H68V180a32,32,0,0,1-1,8H208a4,4,0,0,0,4-4Z"></path></svg>이용약관 (Terms)</a><a class="btn" href="https://www.youtube.com/@unboxai_kr"><svg class="i" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" viewBox="0 0 256 256"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"></path></svg>채널 (Channel)</a></div>
+</section>
+<section id="en" lang="en" class="part">
+<h2 class="part-title">About SNS Studio</h2>
+<section class="blk"><h2>What it is</h2><p>SNS Studio is a Shorts production tool that the operator of the YouTube channel <a href="https://www.youtube.com/@unboxai_kr">언박스 AI (UNBOX AI)</a> runs only on their own computer. It is not a public web service, so there is no login page. It researches new AI tools, writes a script, generates voice, captions and visuals, renders the video, and lets the operator upload it to their own channel after reviewing the title, description and privacy status.</p></section>
+<section class="blk"><h2>How it uses YouTube API Services</h2><ul><li>Uploads Shorts to the operator's own channel (videos.insert). The operator reviews title, description, tags and privacy status on the upload screen and starts every upload.</li><li>Reads comments on the operator's channel and posts replies the operator approves one by one (commentThreads.list, comments.insert). An optional per-video link reply is off by default.</li><li>Shows the connected channel name (channels.list).</li><li>Shows lists of popular public Shorts for topic research (search.list, videos.list, playlistItems.list). Videos are never downloaded; they are opened on YouTube or in the embedded player.</li></ul></section>
+<section class="blk"><h2>Data</h2><p>All data stays on the operator's computer, and data obtained from YouTube is refreshed or deleted within 30 days. See the <a href="../privacy/#en">Privacy Policy</a> for details. Contact: <a href="https://www.instagram.com/unboxai_kr/">https://www.instagram.com/unboxai_kr/</a></p></section>
+<div class="links"><a class="btn" href="../privacy/"><svg class="i" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" viewBox="0 0 256 256"><path d="M232,44H160a43.86,43.86,0,0,0-32,13.85A43.86,43.86,0,0,0,96,44H24A12,12,0,0,0,12,56V200a12,12,0,0,0,12,12H96a20,20,0,0,1,20,20,12,12,0,0,0,24,0,20,20,0,0,1,20-20h72a12,12,0,0,0,12-12V56A12,12,0,0,0,232,44ZM96,188H36V68H96a20,20,0,0,1,20,20V192.81A43.79,43.79,0,0,0,96,188Zm124,0H160a43.71,43.71,0,0,0-20,4.83V88a20,20,0,0,1,20-20h60ZM164,96h32a12,12,0,0,1,0,24H164a12,12,0,0,1,0-24Zm44,52a12,12,0,0,1-12,12H164a12,12,0,0,1,0-24h32A12,12,0,0,1,208,148Z"></path></svg>개인정보처리방침 (Privacy)</a><a class="btn" href="../terms/"><svg class="i" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" viewBox="0 0 256 256"><path d="M92,108a12,12,0,0,1,12-12h72a12,12,0,0,1,0,24H104A12,12,0,0,1,92,108Zm12,52h72a12,12,0,0,0,0-24H104a12,12,0,0,0,0,24ZM236,64V184a28,28,0,0,1-28,28H36A32,32,0,0,1,4,180V88a12,12,0,0,1,24,0v92a8,8,0,0,0,16,0V64A20,20,0,0,1,64,44H216A20,20,0,0,1,236,64Zm-24,4H68V180a32,32,0,0,1-1,8H208a4,4,0,0,0,4-4Z"></path></svg>이용약관 (Terms)</a><a class="btn" href="https://www.youtube.com/@unboxai_kr"><svg class="i" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" viewBox="0 0 256 256"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"></path></svg>채널 (Channel)</a></div>
+</section>
+<footer class="foot"><a href="../privacy/">개인정보처리방침 (Privacy Policy)</a><a href="../terms/">이용약관 (Terms of Use)</a><span>© 2026 UNBOX AI</span></footer>
+</div>
+</body>
+</html>
